@@ -1,0 +1,28 @@
+# Core
+pandas==2.2.2
+numpy==1.26.4
+scikit-learn==1.5.1
+pyyaml==6.0.1
+
+# Fase 1: baseline clásico
+lightgbm==4.5.0
+
+# Fase 2-3: fine-tuning transformers / LLMs
+torch==2.3.1
+transformers==4.44.0
+datasets==2.20.0
+accelerate==0.33.0
+peft==0.12.0          # LoRA / QLoRA
+bitsandbytes==0.43.3  # cuantización 4-bit/8-bit
+sentencepiece==0.2.0
+
+# Tracking de experimentos (recomendado desde la Fase 1)
+wandb==0.17.7
+
+# EDA / notebooks
+matplotlib==3.9.1
+seaborn==0.13.2
+jupyter==1.0.0
+
+# Kaggle API (para bajar datos y hacer submit)
+kaggle==1.6.17
