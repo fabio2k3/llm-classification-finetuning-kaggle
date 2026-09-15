@@ -1,0 +1,39 @@
+# =========================================================
+# Config central del proyecto
+# Cada fase puede sobreescribir esto con su propio config,
+# ej: configs/fase2_deberta.yaml, configs/fase3_llama.yaml
+# =========================================================
+
+project:
+  name: "llm-classification-finetuning"
+  seed: 42
+  competition_slug: "llm-classification-finetuning"
+
+paths:
+  data_dir: "data"
+  train_csv: "data/train.csv"
+  test_csv: "data/test.csv"
+  sample_submission: "data/sample_submission.csv"
+  outputs_dir: "outputs"
+  checkpoints_dir: "checkpoints"
+  logs_dir: "logs"
+
+data:
+  target_cols: ["winner_model_a", "winner_model_b", "winner_tie"]
+  text_cols: ["prompt", "response_a", "response_b"]
+  n_folds: 5
+  cv_strategy: "group_kfold"   # group_kfold si hay prompts repetidos, si no stratified_kfold
+  group_col: "prompt"          # solo aplica si cv_strategy = group_kfold
+
+model:
+  # Se sobreescribe por fase, esto es solo default/placeholder
+  backbone: "microsoft/deberta-v3-base"
+  max_length: 1024
+  batch_size: 8
+  learning_rate: 2e-5
+  epochs: 3
+  fp16: true
+
+wandb:
+  enabled: true
+  project: "lmsys-chatbot-arena"
