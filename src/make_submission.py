@@ -9,6 +9,8 @@ Uso:
 import numpy as np
 import pandas as pd
 
+from src.utils.env import is_kaggle_env
+
 
 def build_submission(test_ids: pd.Series, probs: np.ndarray, config: dict,
                       filename: str = "submission.csv") -> pd.DataFrame:
@@ -17,6 +19,12 @@ def build_submission(test_ids: pd.Series, probs: np.ndarray, config: dict,
     probs: array (N, 3) con columnas en orden [winner_model_a, winner_model_b, winner_tie]
     """
     assert probs.shape[1] == 3, "Se esperan 3 columnas de probabilidad (a, b, tie)"
+
+    # En Kaggle el archivo scoreable SIEMPRE debe llamarse submission.csv
+    if is_kaggle_env() and filename != "submission.csv":
+        print(f"[submission] Corriendo en Kaggle: forzando nombre a 'submission.csv' "
+              f"(pediste '{filename}')")
+        filename = "submission.csv"
 
     submission = pd.DataFrame({
         "id": test_ids,
